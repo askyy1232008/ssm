@@ -37,6 +37,17 @@ public class UserController {
 		return resultBuilder;
 	}
 	
+	@RequestMapping("/error")
+	@ResponseBody
+	@CrossOrigin(origins="*",maxAge=3600)
+	public Object errorPage(HttpServletRequest request){
+		String msg = request.getParameter("errorMessage");
+		JSONObject jobj = new JSONObject();
+		jobj.put("errorMessage",msg);
+		ResultBuilder<JSONObject> resultBuilder = new ResultBuilder<>(jobj, StatusCode.FALL);
+		return resultBuilder;
+	}
+	
 	
 	@RequestMapping("/login")
 	@ResponseBody
