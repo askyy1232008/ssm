@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lee.dao.TruckOwnerDao" >
+  <resultMap id="BaseResultMap" type="com.lee.pojo.TruckOwner" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="truckid" property="truckid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="adress" property="adress" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="issingle" property="issingle" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, truckid, name, phone, adress, number, issingle
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from truckowner_t
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from truckowner_t
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteTruckOwnerByTruckid" parameterType="java.lang.Integer">
+    delete from truckowner_t
+    where truckid = #{truckid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lee.pojo.TruckOwner" >
+    insert into truckowner_t (id, truckid, name, 
+      phone, adress, number, 
+      issingle)
+    values (#{id,jdbcType=INTEGER}, #{truckid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{adress,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, 
+      #{issingle,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lee.pojo.TruckOwner" >
+    insert into truckowner_t
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="truckid != null" >
+        truckid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="adress != null" >
+        adress,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="issingle != null" >
+        issingle,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="truckid != null" >
+        #{truckid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="adress != null" >
+        #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="issingle != null" >
+        #{issingle,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lee.pojo.TruckOwner" >
+    update truckowner_t
+    <set >
+      <if test="truckid != null" >
+        truckid = #{truckid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="adress != null" >
+        adress = #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="issingle != null" >
+        issingle = #{issingle,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lee.pojo.TruckOwner" >
+    update truckowner_t
+    set truckid = #{truckid,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      adress = #{adress,jdbcType=VARCHAR},
+      number = #{number,jdbcType=VARCHAR},
+      issingle = #{issingle,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getTruckOwnerByTruckid" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		truckowner_t
+		where
+		truckid = #{truckid,jdbcType=INTEGER}
+  </select>
+  <select id="getTruckOwnerIsNotsigle" resultMap="BaseResultMap">
+      select id,name
+      from truckowner_t
+      where issingle = "车队"
+      group by number
+  </select>
+  <select id="getTruckOwnerByIdCard" resultMap="BaseResultMap">
+      select 
+      <include refid="Base_Column_List" />
+      from truckowner_t
+      where 
+      number = #{idcard,jdbcType=VARCHAR}
+      group by number
+  </select>
+  <select id="countTruckOwnerByTruckid" resultType="java.lang.Integer">
+      select count(id)
+      from truckowner_t
+      where
+      truckid = #{truckid,jdbcType=INTEGER}
+  </select>
+</mapper>

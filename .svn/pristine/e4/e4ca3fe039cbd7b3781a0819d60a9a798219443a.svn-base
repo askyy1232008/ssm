@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lee.dao.LoanCredentialDao">
+	<resultMap id="BaseResultMap" type="com.lee.pojo.LoanCredential">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="truckid" property="truckid" jdbcType="INTEGER" />
+		<result column="loanpeople" property="loanpeople" jdbcType="VARCHAR" />
+		<result column="financecompany" property="financecompany"
+			jdbcType="VARCHAR" />
+		<result column="loandate" property="loandate" jdbcType="DATE" />
+		<result column="loanmoney" property="loanmoney" jdbcType="DOUBLE" />
+		<result column="moneyrate" property="moneyrate" jdbcType="DOUBLE" />
+		<result column="grossinterest" property="grossinterest"
+			jdbcType="DOUBLE" />
+		<result column="loanservicecharge" property="loanservicecharge"
+			jdbcType="DOUBLE" />
+		<result column="loanservicechargemark" property="loanservicechargemark"
+			jdbcType="VARCHAR" />
+		<result column="othercost" property="othercost" jdbcType="DOUBLE" />
+		<result column="othercostmark" property="othercostmark"
+			jdbcType="VARCHAR" />
+		<result column="bond" property="bond" jdbcType="DOUBLE" />
+		<result column="actual" property="actual" jdbcType="DOUBLE" />
+		<result column="monthlyrepayment" property="monthlyrepayment"
+			jdbcType="DOUBLE" />
+		<result column="trem" property="trem" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, truckid, loanpeople, financecompany, loandate, loanmoney, moneyrate,
+		grossinterest,
+		loanservicecharge, loanservicechargemark, othercost, othercostmark, bond, actual,
+		monthlyrepayment, trem
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from loancredential_t
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from loancredential_t
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByTruckid">
+	    delete from loancredential_t
+		where truckid = #{truckid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.lee.pojo.LoanCredential">
+		insert into loancredential_t (id, truckid, loanpeople,
+		financecompany, loandate, loanmoney,
+		moneyrate, grossinterest, loanservicecharge,
+		loanservicechargemark, othercost, othercostmark,
+		bond, actual, monthlyrepayment,
+		trem)
+		values (#{id,jdbcType=INTEGER}, #{truckid,jdbcType=INTEGER},
+		#{loanpeople,jdbcType=VARCHAR},
+		#{financecompany,jdbcType=VARCHAR}, #{loandate,jdbcType=DATE}, #{loanmoney,jdbcType=DOUBLE},
+		#{moneyrate,jdbcType=DOUBLE}, #{grossinterest,jdbcType=DOUBLE},
+		#{loanservicecharge,jdbcType=DOUBLE},
+		#{loanservicechargemark,jdbcType=VARCHAR},
+		#{othercost,jdbcType=DOUBLE}, #{othercostmark,jdbcType=VARCHAR},
+		#{bond,jdbcType=DOUBLE}, #{actual,jdbcType=DOUBLE},
+		#{monthlyrepayment,jdbcType=DOUBLE},
+		#{trem,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.lee.pojo.LoanCredential">
+		insert into loancredential_t
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="truckid != null">
+				truckid,
+			</if>
+			<if test="loanpeople != null">
+				loanpeople,
+			</if>
+			<if test="financecompany != null">
+				financecompany,
+			</if>
+			<if test="loandate != null">
+				loandate,
+			</if>
+			<if test="loanmoney != null">
+				loanmoney,
+			</if>
+			<if test="moneyrate != null">
+				moneyrate,
+			</if>
+			<if test="grossinterest != null">
+				grossinterest,
+			</if>
+			<if test="loanservicecharge != null">
+				loanservicecharge,
+			</if>
+			<if test="loanservicechargemark != null">
+				loanservicechargemark,
+			</if>
+			<if test="othercost != null">
+				othercost,
+			</if>
+			<if test="othercostmark != null">
+				othercostmark,
+			</if>
+			<if test="bond != null">
+				bond,
+			</if>
+			<if test="actual != null">
+				actual,
+			</if>
+			<if test="monthlyrepayment != null">
+				monthlyrepayment,
+			</if>
+			<if test="trem != null">
+				trem,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="truckid != null">
+				#{truckid,jdbcType=INTEGER},
+			</if>
+			<if test="loanpeople != null">
+				#{loanpeople,jdbcType=VARCHAR},
+			</if>
+			<if test="financecompany != null">
+				#{financecompany,jdbcType=VARCHAR},
+			</if>
+			<if test="loandate != null">
+				#{loandate,jdbcType=DATE},
+			</if>
+			<if test="loanmoney != null">
+				#{loanmoney,jdbcType=DOUBLE},
+			</if>
+			<if test="moneyrate != null">
+				#{moneyrate,jdbcType=DOUBLE},
+			</if>
+			<if test="grossinterest != null">
+				#{grossinterest,jdbcType=DOUBLE},
+			</if>
+			<if test="loanservicecharge != null">
+				#{loanservicecharge,jdbcType=DOUBLE},
+			</if>
+			<if test="loanservicechargemark != null">
+				#{loanservicechargemark,jdbcType=VARCHAR},
+			</if>
+			<if test="othercost != null">
+				#{othercost,jdbcType=DOUBLE},
+			</if>
+			<if test="othercostmark != null">
+				#{othercostmark,jdbcType=VARCHAR},
+			</if>
+			<if test="bond != null">
+				#{bond,jdbcType=DOUBLE},
+			</if>
+			<if test="actual != null">
+				#{actual,jdbcType=DOUBLE},
+			</if>
+			<if test="monthlyrepayment != null">
+				#{monthlyrepayment,jdbcType=DOUBLE},
+			</if>
+			<if test="trem != null">
+				#{trem,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.lee.pojo.LoanCredential">
+		update loancredential_t
+		<set>
+			<if test="truckid != null">
+				truckid = #{truckid,jdbcType=INTEGER},
+			</if>
+			<if test="loanpeople != null">
+				loanpeople = #{loanpeople,jdbcType=VARCHAR},
+			</if>
+			<if test="financecompany != null">
+				financecompany = #{financecompany,jdbcType=VARCHAR},
+			</if>
+			<if test="loandate != null">
+				loandate = #{loandate,jdbcType=DATE},
+			</if>
+			<if test="loanmoney != null">
+				loanmoney = #{loanmoney,jdbcType=DOUBLE},
+			</if>
+			<if test="moneyrate != null">
+				moneyrate = #{moneyrate,jdbcType=DOUBLE},
+			</if>
+			<if test="grossinterest != null">
+				grossinterest = #{grossinterest,jdbcType=DOUBLE},
+			</if>
+			<if test="loanservicecharge != null">
+				loanservicecharge = #{loanservicecharge,jdbcType=DOUBLE},
+			</if>
+			<if test="loanservicechargemark != null">
+				loanservicechargemark = #{loanservicechargemark,jdbcType=VARCHAR},
+			</if>
+			<if test="othercost != null">
+				othercost = #{othercost,jdbcType=DOUBLE},
+			</if>
+			<if test="othercostmark != null">
+				othercostmark = #{othercostmark,jdbcType=VARCHAR},
+			</if>
+			<if test="bond != null">
+				bond = #{bond,jdbcType=DOUBLE},
+			</if>
+			<if test="actual != null">
+				actual = #{actual,jdbcType=DOUBLE},
+			</if>
+			<if test="monthlyrepayment != null">
+				monthlyrepayment = #{monthlyrepayment,jdbcType=DOUBLE},
+			</if>
+			<if test="trem != null">
+				trem = #{trem,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.lee.pojo.LoanCredential">
+		update loancredential_t
+		set truckid = #{truckid,jdbcType=INTEGER},
+		loanpeople = #{loanpeople,jdbcType=VARCHAR},
+		financecompany = #{financecompany,jdbcType=VARCHAR},
+		loandate = #{loandate,jdbcType=DATE},
+		loanmoney = #{loanmoney,jdbcType=DOUBLE},
+		moneyrate = #{moneyrate,jdbcType=DOUBLE},
+		grossinterest = #{grossinterest,jdbcType=DOUBLE},
+		loanservicecharge = #{loanservicecharge,jdbcType=DOUBLE},
+		loanservicechargemark = #{loanservicechargemark,jdbcType=VARCHAR},
+		othercost = #{othercost,jdbcType=DOUBLE},
+		othercostmark = #{othercostmark,jdbcType=VARCHAR},
+		bond = #{bond,jdbcType=DOUBLE},
+		actual = #{actual,jdbcType=DOUBLE},
+		monthlyrepayment = #{monthlyrepayment,jdbcType=DOUBLE},
+		trem = #{trem,jdbcType=INTEGER}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<select id="getLastLoanCredential" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from loancredential_t
+		order by id desc
+		limit 1
+	</select>
+	<resultMap id="LoanCredentialResultMap" type="com.lee.pojo.LoanCredential">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="loanpeople" property="loanpeople" jdbcType="VARCHAR" />
+		<result column="financecompany" property="financecompany"
+			jdbcType="VARCHAR" />
+		<result column="loandate" property="loandate" jdbcType="DATE" />
+		<result column="loanmoney" property="loanmoney" jdbcType="DOUBLE" />
+		<result column="moneyrate" property="moneyrate" jdbcType="DOUBLE" />
+		<result column="grossinterest" property="grossinterest"
+			jdbcType="DOUBLE" />
+		<result column="loanservicecharge" property="loanservicecharge"
+			jdbcType="DOUBLE" />
+		<result column="loanservicechargemark" property="loanservicechargemark"
+			jdbcType="VARCHAR" />
+		<result column="othercost" property="othercost" jdbcType="DOUBLE" />
+		<result column="othercostmark" property="othercostmark"
+			jdbcType="VARCHAR" />
+		<result column="bond" property="bond" jdbcType="DOUBLE" />
+		<result column="actual" property="actual" jdbcType="DOUBLE" />
+		<result column="monthlyrepayment" property="monthlyrepayment"
+			jdbcType="DOUBLE" />
+		<result column="trem" property="trem" jdbcType="INTEGER" />
+		<association property="truck" javaType="com.lee.pojo.Truck">
+			<id property="truckid" column="truckid" jdbcType="INTEGER" />
+			<result column="vin" property="vin" jdbcType="VARCHAR" />
+		</association>
+	</resultMap>
+	<select id="getLoanCredentialDatagrid" resultMap="LoanCredentialResultMap">
+		select
+		lc.id,
+		lc.truckid,
+		lc.loanpeople,
+		lc.financecompany,
+		lc.loandate,
+		lc.loanmoney,
+		lc.moneyrate,
+		lc.grossinterest,
+		lc.loanservicecharge,
+		lc.loanservicechargemark,
+		lc.othercost,
+		lc.othercostmark,
+		lc.bond,
+		lc.actual,
+		lc.monthlyrepayment,
+		lc.trem,
+		t.vin
+		from loancredential_t as lc
+		left join trucks_t as t
+		on lc.truckid = t.truckid
+		<where>
+			<if test="licenseplate != null">
+				and POSITION(#{licenseplate,jdbcType=VARCHAR} IN t.licenseplate)>0
+			</if>
+			<if test="financecompany != null">
+				and POSITION(#{financecompany,jdbcType=VARCHAR} IN lc.financecompany)>0
+			</if>
+			<if test="loanpeople != null">
+				and POSITION(#{loanpeople,jdbcType=VARCHAR} IN lc.loanpeople)>0
+			</if>
+		</where>
+		order by lc.id desc
+		limit #{offset},#{limit} 
+	</select>
+	<select id="countGetLoanCredentialDatagrid" resultType="java.lang.Integer">
+	    select count(lc.id)
+	    from loancredential_t as lc
+		left join trucks_t as t
+		on lc.truckid = t.truckid
+		<where>
+			<if test="licenseplate != null">
+				and POSITION(#{licenseplate,jdbcType=VARCHAR} IN t.licenseplate)>0
+			</if>
+			<if test="financecompany != null">
+				and POSITION(#{financecompany,jdbcType=VARCHAR} IN lc.financecompany)>0
+			</if>
+			<if test="loanpeople != null">
+				and POSITION(#{loanpeople,jdbcType=VARCHAR} IN lc.loanpeople)>0
+			</if>
+		</where>
+	</select>
+	<select id="countByTruckid" resultType="java.lang.Integer">
+	    select count(id)
+	    from loancredential_t
+	    where truckid = #{truckid,jdbcType=INTEGER}
+	</select>
+	<select id="getLoanIdByTruckid" resultMap="BaseResultMap">
+	    select 
+	    <include refid="Base_Column_List" />
+	    from loancredential_t
+	    where truckid = #{truckid,jdbcType=INTEGER}
+	</select>
+</mapper>

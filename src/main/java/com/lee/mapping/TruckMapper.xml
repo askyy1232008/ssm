@@ -1,0 +1,1056 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lee.dao.TruckDao">
+	<resultMap id="BaseResultMap" type="com.lee.pojo.Truck">
+		<id column="truckId" property="truckid" jdbcType="INTEGER" />
+		<result column="truckingCompany" property="truckingcompany"
+			jdbcType="VARCHAR" />
+		<result column="licensePlate" property="licenseplate" jdbcType="VARCHAR" />
+		<result column="isTrailer" property="istrailer" jdbcType="VARCHAR" />
+		<result column="trailerLicensePate" property="trailerlicensepate"
+			jdbcType="VARCHAR" />
+		<result column="vehicleTypes" property="vehicletypes" jdbcType="VARCHAR" />
+		<result column="vehicleType" property="vehicletype" jdbcType="VARCHAR" />
+		<result column="vehicleBrand" property="vehiclebrand" jdbcType="VARCHAR" />
+		<result column="vehicleColor" property="vehiclecolor" jdbcType="VARCHAR" />
+		<result column="recordDate" property="recorddate" jdbcType="DATE" />
+		<result column="vehicleOwnerArea" property="vehicleownerarea"
+			jdbcType="VARCHAR" />
+		<result column="terestAccrual" property="terestaccrual"
+			jdbcType="VARCHAR" />
+		<result column="drivingLicense" property="drivinglicense"
+			jdbcType="DATE" />
+		<result column="operationCertificate" property="operationcertificate"
+			jdbcType="DATE" />
+		<result column="nextMaintain" property="nextmaintain" jdbcType="DATE" />
+		<result column="maintenanceCost" property="maintenancecost"
+			jdbcType="VARCHAR" />
+		<result column="gps" property="gps" jdbcType="VARCHAR" />
+		<result column="gpsRemarks" property="gpsremarks" jdbcType="VARCHAR" />
+		<result column="beidouInstrument" property="beidouinstrument"
+			jdbcType="VARCHAR" />
+		<result column="beidouInstrumentRemarks" property="beidouinstrumentremarks"
+			jdbcType="VARCHAR" />
+		<result column="compulsoryInsuranceTime" property="compulsoryinsurancetime"
+			jdbcType="DATE" />
+		<result column="compulsoryInsuranceCompany" property="compulsoryinsurancecompany"
+			jdbcType="VARCHAR" />
+		<result column="compulsoryInsuranceCost" property="compulsoryinsurancecost"
+			jdbcType="REAL" />
+		<result column="commercialInsuranceTime" property="commercialinsurancetime"
+			jdbcType="DATE" />
+		<result column="commercialInsuranceCompany" property="commercialinsurancecompany"
+			jdbcType="VARCHAR" />
+		<result column="commercialInsuranceCost" property="commercialinsurancecost"
+			jdbcType="REAL" />
+		<result column="commercialInsuranceTypes" property="commercialinsurancetypes"
+			jdbcType="VARCHAR" />
+		<result column="driverMessage" property="drivermessage"
+			jdbcType="VARCHAR" />
+		<result column="vehicleRemarks" property="vehicleremarks"
+			jdbcType="VARCHAR" />
+		<result column="truckType" property="trucktype" jdbcType="VARCHAR" />
+		<result column="vin" property="vin" jdbcType="VARCHAR" />
+		<result column="engineNumber" property="enginenumber" jdbcType="VARCHAR" />
+		<result column="gcontainerSize" property="gcontainersize"
+			jdbcType="VARCHAR" />
+		<result column="axleNumber" property="axlenumber" jdbcType="VARCHAR" />
+		<result column="registrationCertificateNumber" property="registrationcertificatenumber"
+			jdbcType="VARCHAR" />
+		<result column="authenticatedLoadQuality" property="authenticatedloadquality"
+			jdbcType="VARCHAR" />
+		<result column="curbWeight" property="curbweight" jdbcType="VARCHAR" />
+		<result column="appearance" property="appearance" jdbcType="VARCHAR" />
+		<result column="horsepower" property="horsepower" jdbcType="VARCHAR" />
+		<result column="engineModel" property="enginemodel" jdbcType="VARCHAR" />
+		<result column="totalMass" property="totalmass" jdbcType="VARCHAR" />
+		<result column="speedRatio" property="speedratio" jdbcType="VARCHAR" />
+		<result column="tyre" property="tyre" jdbcType="VARCHAR" />
+		<result column="compulsoryInsurcanceTypeQuota" property="compulsoryinsurcancetypequota"
+			jdbcType="VARCHAR" />
+		<result column="compulsoryInsurcanceNumber" property="compulsoryinsurcancenumber"
+			jdbcType="VARCHAR" />
+		<result column="commercialInsuranceNumber" property="commercialinsurancenumber"
+			jdbcType="VARCHAR" />
+		<result column="gvin" property="gvin" jdbcType="VARCHAR" />
+		<result column="gregistrationCertificateNumber" property="gregistrationcertificatenumber"
+			jdbcType="VARCHAR" />
+		<result column="grecordDate" property="grecorddate" jdbcType="DATE" />
+		<result column="gvehicleBrand" property="gvehiclebrand"
+			jdbcType="VARCHAR" />
+		<result column="gtruckType" property="gtrucktype" jdbcType="VARCHAR" />
+		<result column="gvehicleType" property="gvehicletype" jdbcType="VARCHAR" />
+		<result column="gvehicleColor" property="gvehiclecolor"
+			jdbcType="VARCHAR" />
+		<result column="gauthenticatedLoadQuality" property="gauthenticatedloadquality"
+			jdbcType="VARCHAR" />
+		<result column="gcurbWeight" property="gcurbweight" jdbcType="VARCHAR" />
+		<result column="gtotalmass" property="gtotalmass" jdbcType="VARCHAR" />
+		<result column="grearaxle" property="grearaxle" jdbcType="VARCHAR" />
+		<result column="gappearance" property="gappearance" jdbcType="VARCHAR" />
+		<result column="gtyre" property="gtyre" jdbcType="VARCHAR" />
+		<result column="gsparetire" property="gsparetire" jdbcType="VARCHAR" />
+		<result column="gcommercialInsuranceTypeQuota" property="gcommercialinsurancetypequota"
+			jdbcType="VARCHAR" />
+		<result column="gcommercialInsuranceNumber" property="gcommercialinsurancenumber"
+			jdbcType="VARCHAR" />
+		<result column="gcommercialInsuranceCompany" property="gcommercialinsurancecompany"
+			jdbcType="VARCHAR" />
+		<result column="gcommercialInsuranceCost" property="gcommercialinsurancecost"
+			jdbcType="VARCHAR" />
+		<result column="gdrivingLicense" property="gdrivinglicense"
+			jdbcType="DATE" />
+		<result column="goperationCertificate" property="goperationcertificate"
+			jdbcType="DATE" />
+		<result column="gcommercialInsuranceDate" property="gcommercialinsurancedate"
+			jdbcType="DATE" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		truckId, truckingCompany, licensePlate, isTrailer, trailerLicensePate,
+		vehicleTypes,
+		vehicleType, vehicleBrand, vehicleColor, recordDate, vehicleOwnerArea,
+		terestAccrual,
+		drivingLicense, operationCertificate, nextMaintain, maintenanceCost, gps, gpsRemarks,
+		beidouInstrument, beidouInstrumentRemarks, compulsoryInsuranceTime,
+		compulsoryInsuranceCompany,
+		compulsoryInsuranceCost, commercialInsuranceTime, commercialInsuranceCompany,
+		commercialInsuranceCost,
+		commercialInsuranceTypes, driverMessage, vehicleRemarks, truckType, vin, engineNumber,
+		gcontainerSize, axleNumber, registrationCertificateNumber,
+		authenticatedLoadQuality,
+		curbWeight, appearance, horsepower, engineModel, totalMass, speedRatio, tyre,
+		compulsoryInsurcanceTypeQuota,
+		compulsoryInsurcanceNumber, commercialInsuranceNumber, gvin, gregistrationCertificateNumber,
+		grecordDate, gvehicleBrand, gtruckType, gvehicleType, gvehicleColor,
+		gauthenticatedLoadQuality,
+		gcurbWeight, gtotalmass, grearaxle, gappearance, gtyre, gsparetire,
+		gcommercialInsuranceTypeQuota,
+		gcommercialInsuranceNumber, gcommercialInsuranceCompany, gcommercialInsuranceCost,
+		gdrivingLicense, goperationCertificate, gcommercialInsuranceDate
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from trucks_t
+		where truckId = #{truckid,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from trucks_t
+		where truckId = #{truckid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.lee.pojo.Truck">
+		insert into trucks_t (truckId, truckingCompany, licensePlate,
+		isTrailer, trailerLicensePate, vehicleTypes,
+		vehicleType, vehicleBrand, vehicleColor,
+		recordDate, vehicleOwnerArea, terestAccrual,
+		drivingLicense, operationCertificate, nextMaintain,
+		maintenanceCost, gps, gpsRemarks,
+		beidouInstrument, beidouInstrumentRemarks,
+		compulsoryInsuranceTime, compulsoryInsuranceCompany,
+		compulsoryInsuranceCost, commercialInsuranceTime,
+		commercialInsuranceCompany, commercialInsuranceCost,
+		commercialInsuranceTypes, driverMessage,
+		vehicleRemarks, truckType, vin,
+		engineNumber, gcontainerSize, axleNumber,
+		registrationCertificateNumber, authenticatedLoadQuality,
+		curbWeight, appearance, horsepower,
+		engineModel, totalMass, speedRatio,
+		tyre, compulsoryInsurcanceTypeQuota, compulsoryInsurcanceNumber,
+		commercialInsuranceNumber, gvin, gregistrationCertificateNumber,
+		grecordDate, gvehicleBrand, gtruckType,
+		gvehicleType, gvehicleColor, gauthenticatedLoadQuality,
+		gcurbWeight, gtotalmass, grearaxle,
+		gappearance, gtyre, gsparetire,
+		gcommercialInsuranceTypeQuota, gcommercialInsuranceNumber,
+		gcommercialInsuranceCompany, gcommercialInsuranceCost,
+		gdrivingLicense, goperationCertificate, gcommercialInsuranceDate
+		)
+		values (#{truckid,jdbcType=INTEGER}, #{truckingcompany,jdbcType=VARCHAR},
+		#{licenseplate,jdbcType=VARCHAR},
+		#{istrailer,jdbcType=VARCHAR}, #{trailerlicensepate,jdbcType=VARCHAR},
+		#{vehicletypes,jdbcType=VARCHAR},
+		#{vehicletype,jdbcType=VARCHAR}, #{vehiclebrand,jdbcType=VARCHAR}, #{vehiclecolor,jdbcType=VARCHAR},
+		#{recorddate,jdbcType=DATE}, #{vehicleownerarea,jdbcType=VARCHAR},
+		#{terestaccrual,jdbcType=VARCHAR},
+		#{drivinglicense,jdbcType=DATE}, #{operationcertificate,jdbcType=DATE}, #{nextmaintain,jdbcType=DATE},
+		#{maintenancecost,jdbcType=VARCHAR}, #{gps,jdbcType=VARCHAR},
+		#{gpsremarks,jdbcType=VARCHAR},
+		#{beidouinstrument,jdbcType=VARCHAR}, #{beidouinstrumentremarks,jdbcType=VARCHAR},
+		#{compulsoryinsurancetime,jdbcType=DATE},
+		#{compulsoryinsurancecompany,jdbcType=VARCHAR},
+		#{compulsoryinsurancecost,jdbcType=REAL},
+		#{commercialinsurancetime,jdbcType=DATE},
+		#{commercialinsurancecompany,jdbcType=VARCHAR},
+		#{commercialinsurancecost,jdbcType=REAL},
+		#{commercialinsurancetypes,jdbcType=VARCHAR},
+		#{drivermessage,jdbcType=VARCHAR},
+		#{vehicleremarks,jdbcType=VARCHAR}, #{trucktype,jdbcType=VARCHAR}, #{vin,jdbcType=VARCHAR},
+		#{enginenumber,jdbcType=VARCHAR}, #{gcontainersize,jdbcType=VARCHAR},
+		#{axlenumber,jdbcType=VARCHAR},
+		#{registrationcertificatenumber,jdbcType=VARCHAR},
+		#{authenticatedloadquality,jdbcType=VARCHAR},
+		#{curbweight,jdbcType=VARCHAR}, #{appearance,jdbcType=VARCHAR},
+		#{horsepower,jdbcType=VARCHAR},
+		#{enginemodel,jdbcType=VARCHAR}, #{totalmass,jdbcType=VARCHAR}, #{speedratio,jdbcType=VARCHAR},
+		#{tyre,jdbcType=VARCHAR},
+		#{compulsoryinsurcancetypequota,jdbcType=VARCHAR},
+		#{compulsoryinsurcancenumber,jdbcType=VARCHAR},
+		#{commercialinsurancenumber,jdbcType=VARCHAR},
+		#{gvin,jdbcType=VARCHAR},
+		#{gregistrationcertificatenumber,jdbcType=VARCHAR},
+		#{grecorddate,jdbcType=DATE}, #{gvehiclebrand,jdbcType=VARCHAR},
+		#{gtrucktype,jdbcType=VARCHAR},
+		#{gvehicletype,jdbcType=VARCHAR}, #{gvehiclecolor,jdbcType=VARCHAR},
+		#{gauthenticatedloadquality,jdbcType=VARCHAR},
+		#{gcurbweight,jdbcType=VARCHAR}, #{gtotalmass,jdbcType=VARCHAR},
+		#{grearaxle,jdbcType=VARCHAR},
+		#{gappearance,jdbcType=VARCHAR}, #{gtyre,jdbcType=VARCHAR}, #{gsparetire,jdbcType=VARCHAR},
+		#{gcommercialinsurancetypequota,jdbcType=VARCHAR},
+		#{gcommercialinsurancenumber,jdbcType=VARCHAR},
+		#{gcommercialinsurancecompany,jdbcType=VARCHAR},
+		#{gcommercialinsurancecost,jdbcType=VARCHAR},
+		#{gdrivinglicense,jdbcType=DATE},
+		#{goperationcertificate,jdbcType=DATE},
+		#{gcommercialinsurancedate,jdbcType=DATE}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.lee.pojo.Truck">
+		insert into trucks_t
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="truckid != null">
+				truckId,
+			</if>
+			<if test="truckingcompany != null">
+				truckingCompany,
+			</if>
+			<if test="licenseplate != null">
+				licensePlate,
+			</if>
+			<if test="istrailer != null">
+				isTrailer,
+			</if>
+			<if test="trailerlicensepate != null">
+				trailerLicensePate,
+			</if>
+			<if test="vehicletypes != null">
+				vehicleTypes,
+			</if>
+			<if test="vehicletype != null">
+				vehicleType,
+			</if>
+			<if test="vehiclebrand != null">
+				vehicleBrand,
+			</if>
+			<if test="vehiclecolor != null">
+				vehicleColor,
+			</if>
+			<if test="recorddate != null">
+				recordDate,
+			</if>
+			<if test="vehicleownerarea != null">
+				vehicleOwnerArea,
+			</if>
+			<if test="terestaccrual != null">
+				terestAccrual,
+			</if>
+			<if test="drivinglicense != null">
+				drivingLicense,
+			</if>
+			<if test="operationcertificate != null">
+				operationCertificate,
+			</if>
+			<if test="nextmaintain != null">
+				nextMaintain,
+			</if>
+			<if test="maintenancecost != null">
+				maintenanceCost,
+			</if>
+			<if test="gps != null">
+				gps,
+			</if>
+			<if test="gpsremarks != null">
+				gpsRemarks,
+			</if>
+			<if test="beidouinstrument != null">
+				beidouInstrument,
+			</if>
+			<if test="beidouinstrumentremarks != null">
+				beidouInstrumentRemarks,
+			</if>
+			<if test="compulsoryinsurancetime != null">
+				compulsoryInsuranceTime,
+			</if>
+			<if test="compulsoryinsurancecompany != null">
+				compulsoryInsuranceCompany,
+			</if>
+			<if test="compulsoryinsurancecost != null">
+				compulsoryInsuranceCost,
+			</if>
+			<if test="commercialinsurancetime != null">
+				commercialInsuranceTime,
+			</if>
+			<if test="commercialinsurancecompany != null">
+				commercialInsuranceCompany,
+			</if>
+			<if test="commercialinsurancecost != null">
+				commercialInsuranceCost,
+			</if>
+			<if test="commercialinsurancetypes != null">
+				commercialInsuranceTypes,
+			</if>
+			<if test="drivermessage != null">
+				driverMessage,
+			</if>
+			<if test="vehicleremarks != null">
+				vehicleRemarks,
+			</if>
+			<if test="trucktype != null">
+				truckType,
+			</if>
+			<if test="vin != null">
+				vin,
+			</if>
+			<if test="enginenumber != null">
+				engineNumber,
+			</if>
+			<if test="gcontainersize != null">
+				gcontainerSize,
+			</if>
+			<if test="axlenumber != null">
+				axleNumber,
+			</if>
+			<if test="registrationcertificatenumber != null">
+				registrationCertificateNumber,
+			</if>
+			<if test="authenticatedloadquality != null">
+				authenticatedLoadQuality,
+			</if>
+			<if test="curbweight != null">
+				curbWeight,
+			</if>
+			<if test="appearance != null">
+				appearance,
+			</if>
+			<if test="horsepower != null">
+				horsepower,
+			</if>
+			<if test="enginemodel != null">
+				engineModel,
+			</if>
+			<if test="totalmass != null">
+				totalMass,
+			</if>
+			<if test="speedratio != null">
+				speedRatio,
+			</if>
+			<if test="tyre != null">
+				tyre,
+			</if>
+			<if test="compulsoryinsurcancetypequota != null">
+				compulsoryInsurcanceTypeQuota,
+			</if>
+			<if test="compulsoryinsurcancenumber != null">
+				compulsoryInsurcanceNumber,
+			</if>
+			<if test="commercialinsurancenumber != null">
+				commercialInsuranceNumber,
+			</if>
+			<if test="gvin != null">
+				gvin,
+			</if>
+			<if test="gregistrationcertificatenumber != null">
+				gregistrationCertificateNumber,
+			</if>
+			<if test="grecorddate != null">
+				grecordDate,
+			</if>
+			<if test="gvehiclebrand != null">
+				gvehicleBrand,
+			</if>
+			<if test="gtrucktype != null">
+				gtruckType,
+			</if>
+			<if test="gvehicletype != null">
+				gvehicleType,
+			</if>
+			<if test="gvehiclecolor != null">
+				gvehicleColor,
+			</if>
+			<if test="gauthenticatedloadquality != null">
+				gauthenticatedLoadQuality,
+			</if>
+			<if test="gcurbweight != null">
+				gcurbWeight,
+			</if>
+			<if test="gtotalmass != null">
+				gtotalmass,
+			</if>
+			<if test="grearaxle != null">
+				grearaxle,
+			</if>
+			<if test="gappearance != null">
+				gappearance,
+			</if>
+			<if test="gtyre != null">
+				gtyre,
+			</if>
+			<if test="gsparetire != null">
+				gsparetire,
+			</if>
+			<if test="gcommercialinsurancetypequota != null">
+				gcommercialInsuranceTypeQuota,
+			</if>
+			<if test="gcommercialinsurancenumber != null">
+				gcommercialInsuranceNumber,
+			</if>
+			<if test="gcommercialinsurancecompany != null">
+				gcommercialInsuranceCompany,
+			</if>
+			<if test="gcommercialinsurancecost != null">
+				gcommercialInsuranceCost,
+			</if>
+			<if test="gdrivinglicense != null">
+				gdrivingLicense,
+			</if>
+			<if test="goperationcertificate != null">
+				goperationCertificate,
+			</if>
+			<if test="gcommercialinsurancedate != null">
+				gcommercialInsuranceDate,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="truckid != null">
+				#{truckid,jdbcType=INTEGER},
+			</if>
+			<if test="truckingcompany != null">
+				#{truckingcompany,jdbcType=VARCHAR},
+			</if>
+			<if test="licenseplate != null">
+				#{licenseplate,jdbcType=VARCHAR},
+			</if>
+			<if test="istrailer != null">
+				#{istrailer,jdbcType=VARCHAR},
+			</if>
+			<if test="trailerlicensepate != null">
+				#{trailerlicensepate,jdbcType=VARCHAR},
+			</if>
+			<if test="vehicletypes != null">
+				#{vehicletypes,jdbcType=VARCHAR},
+			</if>
+			<if test="vehicletype != null">
+				#{vehicletype,jdbcType=VARCHAR},
+			</if>
+			<if test="vehiclebrand != null">
+				#{vehiclebrand,jdbcType=VARCHAR},
+			</if>
+			<if test="vehiclecolor != null">
+				#{vehiclecolor,jdbcType=VARCHAR},
+			</if>
+			<if test="recorddate != null">
+				#{recorddate,jdbcType=DATE},
+			</if>
+			<if test="vehicleownerarea != null">
+				#{vehicleownerarea,jdbcType=VARCHAR},
+			</if>
+			<if test="terestaccrual != null">
+				#{terestaccrual,jdbcType=VARCHAR},
+			</if>
+			<if test="drivinglicense != null">
+				#{drivinglicense,jdbcType=DATE},
+			</if>
+			<if test="operationcertificate != null">
+				#{operationcertificate,jdbcType=DATE},
+			</if>
+			<if test="nextmaintain != null">
+				#{nextmaintain,jdbcType=DATE},
+			</if>
+			<if test="maintenancecost != null">
+				#{maintenancecost,jdbcType=VARCHAR},
+			</if>
+			<if test="gps != null">
+				#{gps,jdbcType=VARCHAR},
+			</if>
+			<if test="gpsremarks != null">
+				#{gpsremarks,jdbcType=VARCHAR},
+			</if>
+			<if test="beidouinstrument != null">
+				#{beidouinstrument,jdbcType=VARCHAR},
+			</if>
+			<if test="beidouinstrumentremarks != null">
+				#{beidouinstrumentremarks,jdbcType=VARCHAR},
+			</if>
+			<if test="compulsoryinsurancetime != null">
+				#{compulsoryinsurancetime,jdbcType=DATE},
+			</if>
+			<if test="compulsoryinsurancecompany != null">
+				#{compulsoryinsurancecompany,jdbcType=VARCHAR},
+			</if>
+			<if test="compulsoryinsurancecost != null">
+				#{compulsoryinsurancecost,jdbcType=REAL},
+			</if>
+			<if test="commercialinsurancetime != null">
+				#{commercialinsurancetime,jdbcType=DATE},
+			</if>
+			<if test="commercialinsurancecompany != null">
+				#{commercialinsurancecompany,jdbcType=VARCHAR},
+			</if>
+			<if test="commercialinsurancecost != null">
+				#{commercialinsurancecost,jdbcType=REAL},
+			</if>
+			<if test="commercialinsurancetypes != null">
+				#{commercialinsurancetypes,jdbcType=VARCHAR},
+			</if>
+			<if test="drivermessage != null">
+				#{drivermessage,jdbcType=VARCHAR},
+			</if>
+			<if test="vehicleremarks != null">
+				#{vehicleremarks,jdbcType=VARCHAR},
+			</if>
+			<if test="trucktype != null">
+				#{trucktype,jdbcType=VARCHAR},
+			</if>
+			<if test="vin != null">
+				#{vin,jdbcType=VARCHAR},
+			</if>
+			<if test="enginenumber != null">
+				#{enginenumber,jdbcType=VARCHAR},
+			</if>
+			<if test="gcontainersize != null">
+				#{gcontainersize,jdbcType=VARCHAR},
+			</if>
+			<if test="axlenumber != null">
+				#{axlenumber,jdbcType=VARCHAR},
+			</if>
+			<if test="registrationcertificatenumber != null">
+				#{registrationcertificatenumber,jdbcType=VARCHAR},
+			</if>
+			<if test="authenticatedloadquality != null">
+				#{authenticatedloadquality,jdbcType=VARCHAR},
+			</if>
+			<if test="curbweight != null">
+				#{curbweight,jdbcType=VARCHAR},
+			</if>
+			<if test="appearance != null">
+				#{appearance,jdbcType=VARCHAR},
+			</if>
+			<if test="horsepower != null">
+				#{horsepower,jdbcType=VARCHAR},
+			</if>
+			<if test="enginemodel != null">
+				#{enginemodel,jdbcType=VARCHAR},
+			</if>
+			<if test="totalmass != null">
+				#{totalmass,jdbcType=VARCHAR},
+			</if>
+			<if test="speedratio != null">
+				#{speedratio,jdbcType=VARCHAR},
+			</if>
+			<if test="tyre != null">
+				#{tyre,jdbcType=VARCHAR},
+			</if>
+			<if test="compulsoryinsurcancetypequota != null">
+				#{compulsoryinsurcancetypequota,jdbcType=VARCHAR},
+			</if>
+			<if test="compulsoryinsurcancenumber != null">
+				#{compulsoryinsurcancenumber,jdbcType=VARCHAR},
+			</if>
+			<if test="commercialinsurancenumber != null">
+				#{commercialinsurancenumber,jdbcType=VARCHAR},
+			</if>
+			<if test="gvin != null">
+				#{gvin,jdbcType=VARCHAR},
+			</if>
+			<if test="gregistrationcertificatenumber != null">
+				#{gregistrationcertificatenumber,jdbcType=VARCHAR},
+			</if>
+			<if test="grecorddate != null">
+				#{grecorddate,jdbcType=DATE},
+			</if>
+			<if test="gvehiclebrand != null">
+				#{gvehiclebrand,jdbcType=VARCHAR},
+			</if>
+			<if test="gtrucktype != null">
+				#{gtrucktype,jdbcType=VARCHAR},
+			</if>
+			<if test="gvehicletype != null">
+				#{gvehicletype,jdbcType=VARCHAR},
+			</if>
+			<if test="gvehiclecolor != null">
+				#{gvehiclecolor,jdbcType=VARCHAR},
+			</if>
+			<if test="gauthenticatedloadquality != null">
+				#{gauthenticatedloadquality,jdbcType=VARCHAR},
+			</if>
+			<if test="gcurbweight != null">
+				#{gcurbweight,jdbcType=VARCHAR},
+			</if>
+			<if test="gtotalmass != null">
+				#{gtotalmass,jdbcType=VARCHAR},
+			</if>
+			<if test="grearaxle != null">
+				#{grearaxle,jdbcType=VARCHAR},
+			</if>
+			<if test="gappearance != null">
+				#{gappearance,jdbcType=VARCHAR},
+			</if>
+			<if test="gtyre != null">
+				#{gtyre,jdbcType=VARCHAR},
+			</if>
+			<if test="gsparetire != null">
+				#{gsparetire,jdbcType=VARCHAR},
+			</if>
+			<if test="gcommercialinsurancetypequota != null">
+				#{gcommercialinsurancetypequota,jdbcType=VARCHAR},
+			</if>
+			<if test="gcommercialinsurancenumber != null">
+				#{gcommercialinsurancenumber,jdbcType=VARCHAR},
+			</if>
+			<if test="gcommercialinsurancecompany != null">
+				#{gcommercialinsurancecompany,jdbcType=VARCHAR},
+			</if>
+			<if test="gcommercialinsurancecost != null">
+				#{gcommercialinsurancecost,jdbcType=VARCHAR},
+			</if>
+			<if test="gdrivinglicense != null">
+				#{gdrivinglicense,jdbcType=DATE},
+			</if>
+			<if test="goperationcertificate != null">
+				#{goperationcertificate,jdbcType=DATE},
+			</if>
+			<if test="gcommercialinsurancedate != null">
+				#{gcommercialinsurancedate,jdbcType=DATE},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.lee.pojo.Truck">
+		update trucks_t
+		<set>
+			<if test="truckingcompany != null">
+				truckingCompany = #{truckingcompany,jdbcType=VARCHAR},
+			</if>
+			<if test="licenseplate != null">
+				licensePlate = #{licenseplate,jdbcType=VARCHAR},
+			</if>
+			<if test="istrailer != null">
+				isTrailer = #{istrailer,jdbcType=VARCHAR},
+			</if>
+			<if test="trailerlicensepate != null">
+				trailerLicensePate = #{trailerlicensepate,jdbcType=VARCHAR},
+			</if>
+			<if test="vehicletypes != null">
+				vehicleTypes = #{vehicletypes,jdbcType=VARCHAR},
+			</if>
+			<if test="vehicletype != null">
+				vehicleType = #{vehicletype,jdbcType=VARCHAR},
+			</if>
+			<if test="vehiclebrand != null">
+				vehicleBrand = #{vehiclebrand,jdbcType=VARCHAR},
+			</if>
+			<if test="vehiclecolor != null">
+				vehicleColor = #{vehiclecolor,jdbcType=VARCHAR},
+			</if>
+			<if test="recorddate != null">
+				recordDate = #{recorddate,jdbcType=DATE},
+			</if>
+			<if test="vehicleownerarea != null">
+				vehicleOwnerArea = #{vehicleownerarea,jdbcType=VARCHAR},
+			</if>
+			<if test="terestaccrual != null">
+				terestAccrual = #{terestaccrual,jdbcType=VARCHAR},
+			</if>
+			<if test="drivinglicense != null">
+				drivingLicense = #{drivinglicense,jdbcType=DATE},
+			</if>
+			<if test="operationcertificate != null">
+				operationCertificate = #{operationcertificate,jdbcType=DATE},
+			</if>
+			<if test="nextmaintain != null">
+				nextMaintain = #{nextmaintain,jdbcType=DATE},
+			</if>
+			<if test="maintenancecost != null">
+				maintenanceCost = #{maintenancecost,jdbcType=VARCHAR},
+			</if>
+			<if test="gps != null">
+				gps = #{gps,jdbcType=VARCHAR},
+			</if>
+			<if test="gpsremarks != null">
+				gpsRemarks = #{gpsremarks,jdbcType=VARCHAR},
+			</if>
+			<if test="beidouinstrument != null">
+				beidouInstrument = #{beidouinstrument,jdbcType=VARCHAR},
+			</if>
+			<if test="beidouinstrumentremarks != null">
+				beidouInstrumentRemarks =
+				#{beidouinstrumentremarks,jdbcType=VARCHAR},
+			</if>
+			<if test="compulsoryinsurancetime != null">
+				compulsoryInsuranceTime = #{compulsoryinsurancetime,jdbcType=DATE},
+			</if>
+			<if test="compulsoryinsurancecompany != null">
+				compulsoryInsuranceCompany =
+				#{compulsoryinsurancecompany,jdbcType=VARCHAR},
+			</if>
+			<if test="compulsoryinsurancecost != null">
+				compulsoryInsuranceCost = #{compulsoryinsurancecost,jdbcType=REAL},
+			</if>
+			<if test="commercialinsurancetime != null">
+				commercialInsuranceTime = #{commercialinsurancetime,jdbcType=DATE},
+			</if>
+			<if test="commercialinsurancecompany != null">
+				commercialInsuranceCompany =
+				#{commercialinsurancecompany,jdbcType=VARCHAR},
+			</if>
+			<if test="commercialinsurancecost != null">
+				commercialInsuranceCost = #{commercialinsurancecost,jdbcType=REAL},
+			</if>
+			<if test="commercialinsurancetypes != null">
+				commercialInsuranceTypes =
+				#{commercialinsurancetypes,jdbcType=VARCHAR},
+			</if>
+			<if test="drivermessage != null">
+				driverMessage = #{drivermessage,jdbcType=VARCHAR},
+			</if>
+			<if test="vehicleremarks != null">
+				vehicleRemarks = #{vehicleremarks,jdbcType=VARCHAR},
+			</if>
+			<if test="trucktype != null">
+				truckType = #{trucktype,jdbcType=VARCHAR},
+			</if>
+			<if test="vin != null">
+				vin = #{vin,jdbcType=VARCHAR},
+			</if>
+			<if test="enginenumber != null">
+				engineNumber = #{enginenumber,jdbcType=VARCHAR},
+			</if>
+			<if test="gcontainersize != null">
+				gcontainerSize = #{gcontainersize,jdbcType=VARCHAR},
+			</if>
+			<if test="axlenumber != null">
+				axleNumber = #{axlenumber,jdbcType=VARCHAR},
+			</if>
+			<if test="registrationcertificatenumber != null">
+				registrationCertificateNumber =
+				#{registrationcertificatenumber,jdbcType=VARCHAR},
+			</if>
+			<if test="authenticatedloadquality != null">
+				authenticatedLoadQuality =
+				#{authenticatedloadquality,jdbcType=VARCHAR},
+			</if>
+			<if test="curbweight != null">
+				curbWeight = #{curbweight,jdbcType=VARCHAR},
+			</if>
+			<if test="appearance != null">
+				appearance = #{appearance,jdbcType=VARCHAR},
+			</if>
+			<if test="horsepower != null">
+				horsepower = #{horsepower,jdbcType=VARCHAR},
+			</if>
+			<if test="enginemodel != null">
+				engineModel = #{enginemodel,jdbcType=VARCHAR},
+			</if>
+			<if test="totalmass != null">
+				totalMass = #{totalmass,jdbcType=VARCHAR},
+			</if>
+			<if test="speedratio != null">
+				speedRatio = #{speedratio,jdbcType=VARCHAR},
+			</if>
+			<if test="tyre != null">
+				tyre = #{tyre,jdbcType=VARCHAR},
+			</if>
+			<if test="compulsoryinsurcancetypequota != null">
+				compulsoryInsurcanceTypeQuota =
+				#{compulsoryinsurcancetypequota,jdbcType=VARCHAR},
+			</if>
+			<if test="compulsoryinsurcancenumber != null">
+				compulsoryInsurcanceNumber =
+				#{compulsoryinsurcancenumber,jdbcType=VARCHAR},
+			</if>
+			<if test="commercialinsurancenumber != null">
+				commercialInsuranceNumber =
+				#{commercialinsurancenumber,jdbcType=VARCHAR},
+			</if>
+			<if test="gvin != null">
+				gvin = #{gvin,jdbcType=VARCHAR},
+			</if>
+			<if test="gregistrationcertificatenumber != null">
+				gregistrationCertificateNumber =
+				#{gregistrationcertificatenumber,jdbcType=VARCHAR},
+			</if>
+			<if test="grecorddate != null">
+				grecordDate = #{grecorddate,jdbcType=DATE},
+			</if>
+			<if test="gvehiclebrand != null">
+				gvehicleBrand = #{gvehiclebrand,jdbcType=VARCHAR},
+			</if>
+			<if test="gtrucktype != null">
+				gtruckType = #{gtrucktype,jdbcType=VARCHAR},
+			</if>
+			<if test="gvehicletype != null">
+				gvehicleType = #{gvehicletype,jdbcType=VARCHAR},
+			</if>
+			<if test="gvehiclecolor != null">
+				gvehicleColor = #{gvehiclecolor,jdbcType=VARCHAR},
+			</if>
+			<if test="gauthenticatedloadquality != null">
+				gauthenticatedLoadQuality =
+				#{gauthenticatedloadquality,jdbcType=VARCHAR},
+			</if>
+			<if test="gcurbweight != null">
+				gcurbWeight = #{gcurbweight,jdbcType=VARCHAR},
+			</if>
+			<if test="gtotalmass != null">
+				gtotalmass = #{gtotalmass,jdbcType=VARCHAR},
+			</if>
+			<if test="grearaxle != null">
+				grearaxle = #{grearaxle,jdbcType=VARCHAR},
+			</if>
+			<if test="gappearance != null">
+				gappearance = #{gappearance,jdbcType=VARCHAR},
+			</if>
+			<if test="gtyre != null">
+				gtyre = #{gtyre,jdbcType=VARCHAR},
+			</if>
+			<if test="gsparetire != null">
+				gsparetire = #{gsparetire,jdbcType=VARCHAR},
+			</if>
+			<if test="gcommercialinsurancetypequota != null">
+				gcommercialInsuranceTypeQuota =
+				#{gcommercialinsurancetypequota,jdbcType=VARCHAR},
+			</if>
+			<if test="gcommercialinsurancenumber != null">
+				gcommercialInsuranceNumber =
+				#{gcommercialinsurancenumber,jdbcType=VARCHAR},
+			</if>
+			<if test="gcommercialinsurancecompany != null">
+				gcommercialInsuranceCompany =
+				#{gcommercialinsurancecompany,jdbcType=VARCHAR},
+			</if>
+			<if test="gcommercialinsurancecost != null">
+				gcommercialInsuranceCost =
+				#{gcommercialinsurancecost,jdbcType=VARCHAR},
+			</if>
+			<if test="gdrivinglicense != null">
+				gdrivingLicense = #{gdrivinglicense,jdbcType=DATE},
+			</if>
+			<if test="goperationcertificate != null">
+				goperationCertificate = #{goperationcertificate,jdbcType=DATE},
+			</if>
+			<if test="gcommercialinsurancedate != null">
+				gcommercialInsuranceDate =
+				#{gcommercialinsurancedate,jdbcType=DATE},
+			</if>
+		</set>
+		where truckId = #{truckid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.lee.pojo.Truck">
+		update trucks_t
+		set truckingCompany = #{truckingcompany,jdbcType=VARCHAR},
+		licensePlate = #{licenseplate,jdbcType=VARCHAR},
+		isTrailer = #{istrailer,jdbcType=VARCHAR},
+		trailerLicensePate = #{trailerlicensepate,jdbcType=VARCHAR},
+		vehicleTypes = #{vehicletypes,jdbcType=VARCHAR},
+		vehicleType = #{vehicletype,jdbcType=VARCHAR},
+		vehicleBrand = #{vehiclebrand,jdbcType=VARCHAR},
+		vehicleColor = #{vehiclecolor,jdbcType=VARCHAR},
+		recordDate = #{recorddate,jdbcType=DATE},
+		vehicleOwnerArea = #{vehicleownerarea,jdbcType=VARCHAR},
+		terestAccrual = #{terestaccrual,jdbcType=VARCHAR},
+		drivingLicense = #{drivinglicense,jdbcType=DATE},
+		operationCertificate = #{operationcertificate,jdbcType=DATE},
+		nextMaintain = #{nextmaintain,jdbcType=DATE},
+		maintenanceCost = #{maintenancecost,jdbcType=VARCHAR},
+		gps = #{gps,jdbcType=VARCHAR},
+		gpsRemarks = #{gpsremarks,jdbcType=VARCHAR},
+		beidouInstrument = #{beidouinstrument,jdbcType=VARCHAR},
+		beidouInstrumentRemarks = #{beidouinstrumentremarks,jdbcType=VARCHAR},
+		compulsoryInsuranceTime = #{compulsoryinsurancetime,jdbcType=DATE},
+		compulsoryInsuranceCompany =
+		#{compulsoryinsurancecompany,jdbcType=VARCHAR},
+		compulsoryInsuranceCost = #{compulsoryinsurancecost,jdbcType=REAL},
+		commercialInsuranceTime = #{commercialinsurancetime,jdbcType=DATE},
+		commercialInsuranceCompany =
+		#{commercialinsurancecompany,jdbcType=VARCHAR},
+		commercialInsuranceCost = #{commercialinsurancecost,jdbcType=REAL},
+		commercialInsuranceTypes =
+		#{commercialinsurancetypes,jdbcType=VARCHAR},
+		driverMessage = #{drivermessage,jdbcType=VARCHAR},
+		vehicleRemarks = #{vehicleremarks,jdbcType=VARCHAR},
+		truckType = #{trucktype,jdbcType=VARCHAR},
+		vin = #{vin,jdbcType=VARCHAR},
+		engineNumber = #{enginenumber,jdbcType=VARCHAR},
+		gcontainerSize = #{gcontainersize,jdbcType=VARCHAR},
+		axleNumber = #{axlenumber,jdbcType=VARCHAR},
+		registrationCertificateNumber = #{registrationcertificatenumber,jdbcType=VARCHAR},
+		authenticatedLoadQuality =
+		#{authenticatedloadquality,jdbcType=VARCHAR},
+		curbWeight = #{curbweight,jdbcType=VARCHAR},
+		appearance = #{appearance,jdbcType=VARCHAR},
+		horsepower = #{horsepower,jdbcType=VARCHAR},
+		engineModel = #{enginemodel,jdbcType=VARCHAR},
+		totalMass = #{totalmass,jdbcType=VARCHAR},
+		speedRatio = #{speedratio,jdbcType=VARCHAR},
+		tyre = #{tyre,jdbcType=VARCHAR},
+		compulsoryInsurcanceTypeQuota = #{compulsoryinsurcancetypequota,jdbcType=VARCHAR},
+		compulsoryInsurcanceNumber =
+		#{compulsoryinsurcancenumber,jdbcType=VARCHAR},
+		commercialInsuranceNumber =
+		#{commercialinsurancenumber,jdbcType=VARCHAR},
+		gvin = #{gvin,jdbcType=VARCHAR},
+		gregistrationCertificateNumber = #{gregistrationcertificatenumber,jdbcType=VARCHAR},
+		grecordDate = #{grecorddate,jdbcType=DATE},
+		gvehicleBrand = #{gvehiclebrand,jdbcType=VARCHAR},
+		gtruckType = #{gtrucktype,jdbcType=VARCHAR},
+		gvehicleType = #{gvehicletype,jdbcType=VARCHAR},
+		gvehicleColor = #{gvehiclecolor,jdbcType=VARCHAR},
+		gauthenticatedLoadQuality = #{gauthenticatedloadquality,jdbcType=VARCHAR},
+		gcurbWeight = #{gcurbweight,jdbcType=VARCHAR},
+		gtotalmass = #{gtotalmass,jdbcType=VARCHAR},
+		grearaxle = #{grearaxle,jdbcType=VARCHAR},
+		gappearance = #{gappearance,jdbcType=VARCHAR},
+		gtyre = #{gtyre,jdbcType=VARCHAR},
+		gsparetire = #{gsparetire,jdbcType=VARCHAR},
+		gcommercialInsuranceTypeQuota = #{gcommercialinsurancetypequota,jdbcType=VARCHAR},
+		gcommercialInsuranceNumber =
+		#{gcommercialinsurancenumber,jdbcType=VARCHAR},
+		gcommercialInsuranceCompany =
+		#{gcommercialinsurancecompany,jdbcType=VARCHAR},
+		gcommercialInsuranceCost =
+		#{gcommercialinsurancecost,jdbcType=VARCHAR},
+		gdrivingLicense = #{gdrivinglicense,jdbcType=DATE},
+		goperationCertificate = #{goperationcertificate,jdbcType=DATE},
+		gcommercialInsuranceDate = #{gcommercialinsurancedate,jdbcType=DATE}
+		where truckId = #{truckid,jdbcType=INTEGER}
+	</update>
+	<resultMap id="TruckResultMap" type="com.lee.pojo.Truck">
+		<id column="truckId" property="truckid" jdbcType="INTEGER" />
+		<result column="vin" property="vin" jdbcType="VARCHAR" />
+		<result column="compulsoryinsurcancetypequota" property="compulsoryinsurcancetypequota"
+			jdbcType="VARCHAR" />
+		<result column="truckingCompany" property="truckingcompany"
+			jdbcType="VARCHAR" />
+		<result column="licensePlate" property="licenseplate" jdbcType="VARCHAR" />
+		<result column="trailerLicensePate" property="trailerlicensepate"
+			jdbcType="VARCHAR" />
+		<result column="drivingLicense" property="drivinglicense"
+			jdbcType="DATE" />
+		<result column="operationCertificate" property="operationcertificate"
+			jdbcType="DATE" />
+		<result column="compulsoryInsuranceTime" property="compulsoryinsurancetime"
+			jdbcType="DATE" />
+		<result column="commercialInsuranceTime" property="commercialinsurancetime"
+			jdbcType="DATE" />
+		<result column="gdrivingLicense" property="gdrivinglicense"
+			jdbcType="DATE" />
+		<result column="goperationCertificate" property="goperationcertificate"
+			jdbcType="DATE" />
+		<result column="gcommercialInsuranceDate" property="gcommercialinsurancedate"
+			jdbcType="DATE" />
+		<association property="truckOwner" javaType="com.lee.pojo.TruckOwner">
+			<id property="truckid" column="truckid" jdbcType="INTEGER" />
+			<result column="name" property="name"
+				jdbcType="VARCHAR" />
+			<result column="phone" property="phone"
+				jdbcType="VARCHAR" />
+		</association>
+	</resultMap>
+	<select id="getTruckDatagrid" resultMap="TruckResultMap">
+		select
+		t.truckid,
+		t.vin,
+		t.compulsoryinsurcancetypequota,
+		t.truckingCompany,
+		t.licenseplate,
+		t.drivinglicense,
+		t.operationcertificate,
+		t.compulsoryinsurancetime,
+		t.commercialInsurancetime,
+		t.trailerLicensepate,
+		t.gdrivinglicense,
+		t.goperationCertificate,
+		t.gcommercialInsurancedate,
+		o.name,
+		o.phone
+		from trucks_t as t
+		left join truckowner_t as o
+		on t.truckid = o.truckid
+		<where>
+			<if test="tc != null">
+				and POSITION(#{tc,jdbcType=VARCHAR} IN truckingcompany)>0
+			</if>
+			<if test="lp != null">
+				and POSITION(#{lp,jdbcType=VARCHAR} IN licensePlate)>0
+			</if>
+			<if test="tl != null">
+				and POSITION(#{tl,jdbcType=VARCHAR} IN trailerLicensePate)>0
+			</if>
+		</where>
+		order by t.truckid desc
+		limit #{offset},#{limit}
+	</select>
+	<select id="countTrucks" resultType="java.lang.Integer">
+		select count(truckid)
+		from trucks_t
+		<where>
+			<if test="tc != null">
+				and POSITION(#{tc,jdbcType=VARCHAR} IN truckingcompany)>0
+			</if>
+			<if test="lp != null">
+				and POSITION(#{lp,jdbcType=VARCHAR} IN licensePlate)>0
+			</if>
+			<if test="tl != null">
+				and POSITION(#{tl,jdbcType=VARCHAR} IN trailerLicensePate)>0
+			</if>
+		</where>
+	</select>
+	<select id="getIdByLicenseplate" resultType="java.lang.Integer">
+		select truckid
+		from trucks_t
+		<where>
+			<if test="lp != null">
+				and licensePlate = #{lp,jdbcType=VARCHAR}
+			</if>
+			<if test="tl != null">
+				and trailerlicensepate = #{tl,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	<select id="countTruckByLPAndTL" resultType="java.lang.Integer">
+		select count(truckid)
+		from trucks_t
+		<where>
+			<if test="lp != null">
+				and licensePlate = #{lp,jdbcType=VARCHAR}
+			</if>
+			<if test="tl != null">
+				and trailerlicensepate = #{tl,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	<select id="getTrucks" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from trucks_t
+		order by #{datename,jdbcType=DATE} desc
+		limit #{offset},#{limit}
+	</select>
+	<select id="getTrucks1" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from trucks_t
+		limit #{offset},#{limit}
+	</select>
+	<select id="getTheLastTruck" resultMap="BaseResultMap">
+	    select
+	    <include refid="Base_Column_List" />
+	    from trucks_t
+	    order by truckid desc
+	    limit 1
+	</select>
+	<select id="getAllTrucks" resultMap="BaseResultMap">
+	    select
+	    <include refid="Base_Column_List" />
+	    from trucks_t
+	</select>
+</mapper>

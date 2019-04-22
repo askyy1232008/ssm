@@ -1,0 +1,175 @@
+package com.lee.controller;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.alibaba.fastjson.JSONObject;
+import com.lee.dao.RepayDao;
+import com.lee.dao.TruckDao;
+import com.lee.pojo.Repay;
+import com.lee.pojo.Truck;
+import com.lee.utils.BeanUtil;
+import com.lee.utils.DateUtil;
+import com.lee.utils.ResultBuilder;
+import com.lee.utils.StatusCode;
+
+@Controller
+@RequestMapping("/repay")
+public class RepayController {
+	@Resource(name = "repayDao")
+	private RepayDao repayDao;
+	@Resource(name = "truckDao")
+	private TruckDao truckDao;
+	
+	@RequestMapping("/getthistrucklast")
+	@ResponseBody
+	@CrossOrigin(origins = "*", maxAge = 3600)
+	public Object getthistrucklast(HttpServletRequest request) {
+		int truckid = Integer.parseInt(request.getParameter("truckid"));
+		JSONObject jobj = new JSONObject();
+		jobj.put("obj", repayDao.getthistrucklast(truckid));
+		ResultBuilder<JSONObject> resultBuilder = new ResultBuilder<>(jobj, StatusCode.SUCCESS);
+		return resultBuilder;
+	}
+	
+	@RequestMapping("/deleteone")
+	@ResponseBody
+	@CrossOrigin(origins = "*", maxAge = 3600)
+	public Object deleteone(HttpServletRequest request) {
+		int id = Integer.parseInt(request.getParameter("id"));
+		int truckid = Integer.parseInt(request.getParameter("truckid"));
+		JSONObject jobj = new JSONObject();
+		int lastid = repayDao.getthistrucklastid(truckid);
+		if(id == lastid){
+			int r = repayDao.deleteByPrimaryKey(id);
+			if(r>0){
+				jobj.put("r", "删除成功!");
+				ResultBuilder<JSONObject> resultBuilder = new ResultBuilder<>(jobj, StatusCode.SUCCESS);
+				return resultBuilder;
+			}else{
+				jobj.put("r", "删除失败,没有删除任何一条记录!");
+				ResultBuilder<JSONObject> resultBuilder = new ResultBuilder<>(jobj, StatusCode.FALL);
+				return resultBuilder;
+			}
+		}else{
+			jobj.put("r", "删除失败,不是最后一条记录!");
+			ResultBuilder<JSONObject> resultBuilder = new ResultBuilder<>(jobj, StatusCode.FALL);
+			return resultBuilder;
+		}
+	}
+	
+	@RequestMapping("/getthistruckall")
+	@ResponseBody
+	@CrossOrigin(origins = "*", maxAge = 3600)
+	public Object getthistruckall(HttpServletRequest request) {
+		int truckid = Integer.parseInt(request.getParameter("truckid"));
+		Map<String,Object> m = new HashMap<String,Object>();
+		int total = repayDao.countthistruckall(truckid);
+		List<String> l = new ArrayList<String>();
+		l.add("1");
+		if(total<=0){
+			m.put("total", 0);
+			m.put("rows", l);
+			return m;
+		}
+		m.put("total", total);
+		List<Repay> list = repayDao.getthistruckall(truckid);
+		List<Map<String,Object>> list1 = new ArrayList<Map<String,Object>>();
+		
+		for(int i=0;i<list.size();i++){
+			list.get(i).setMonthlypayed(String.valueOf(Double.parseDouble(list.get(i).getNowpay().toString())+Double.parseDouble(list.get(i).getMonthlypayed().toString())));
+			list.get(i).setVoucherdate(DateUtil.strToUtilDate(DateUtil.addMonth(DateUtil.dateToStr(list.get(i).getVoucherdate(), "yyyy-MM-dd"), "yyyy-MM-dd", Integer.parseInt(list.get(i).getMonths())), "yyyy-MM-dd"));
+			Map<String,Object> map = BeanUtil.transBean2Map(list.get(i));
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			map.replace("voucherdate", sdf.format(map.get("voucherdate")));
+			map.replace("paydate", sdf.format(map.get("paydate")));
+			list1.add(map);
+		}
+		m.put("rows", list1);
+		return m;
+	}
+	
+	@RequestMapping("/add")
+	@ResponseBody
+	@CrossOrigin(origins = "*", maxAge = 3600)
+	public int add(@RequestBody Repay repay) {
+		int r= repayDao.insertSelective(repay);
+		if(r>0){
+			return 20000;
+		}else{
+			return 404;
+		}
+	}
+	
+	@RequestMapping("gettruckall")
+	@ResponseBody
+	@CrossOrigin(origins = "*", maxAge = 3600)
+	public Object gettruckall(HttpServletRequest request) {
+		int days = Integer.parseInt(request.getParameter("days"));
+		Double rate = Double.parseDouble(request.getParameter("rate"));
+		List<Truck> trucks = truckDao.getAllTrucks();
+		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
+		for(Truck t :trucks){
+			Integer truckid = t.getTruckid();
+			Repay rp = repayDao.getthistrucklast(truckid);
+			if(rp != null){
+				try {
+					Map<String,Object> m = new HashMap<String,Object>();
+					m.put("truckid", rp.getTruckid());
+					Truck truck = truckDao.selectByPrimaryKey(rp.getTruckid());
+					m.put("licenseplate", truck.getLicenseplate());
+					m.put("trailerlicensepate",truck.getTrailerlicensepate());
+					m.put("totalrepay", rp.getTotalrepayafterpayed());
+					Date oldDate = rp.getPaydate();
+					Date nowDate = DateUtil.nowDate();
+					int bt;
+					bt = DateUtil.getMonthSpace(DateUtil.dateToStr(oldDate, "yyyy-MM-dd"), DateUtil.dateToStr(nowDate, "yyyy-MM-dd"));
+					if(bt == 0){
+						m.put("monthlyrepay", rp.getMonthlyrepay());
+						m.put("monthlypayed", Double.parseDouble(rp.getMonthlypayed()) + Double.parseDouble(rp.getNowpay()));
+					}else{
+						m.put("monthlyrepay", Double.parseDouble(rp.getMonthlyneedpay()) + (Double.parseDouble(rp.getMonthlyrent())*bt));
+						m.put("monthlypayed", 0);
+					}
+					double remainingarrears =  (Double.parseDouble(m.get("monthlyrepay").toString())-Double.parseDouble(m.get("monthlypayed").toString()));
+					m.put("remainingarrears", remainingarrears);
+					m.put("days", days);
+					double latefee =  (Double.parseDouble(m.get("remainingarrears").toString()) * days * rate);
+					if(latefee<0){
+						latefee = 0;
+					}
+					m.put("latefee", latefee);
+					m.put("monthlyneedpay", remainingarrears + latefee);
+					m.put("totalrepayafterpayed",  Double.parseDouble(m.get("totalrepay").toString()) + latefee);
+					m.put("voucherdate", DateUtil.addMonth(DateUtil.dateToStr(rp.getVoucherdate(), "yyyy-MM-dd"), "yyyy-MM-dd", Integer.parseInt(rp.getMonths())));
+					m.put("total", rp.getTotal());
+					m.put("remarks", rp.getRemarks());
+					m.put("months", rp.getMonths());
+					m.put("monthlyrent", rp.getMonthlyrent());
+					list.add(m);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("total",list.size());
+		map.put("rows", list);
+		return map;
+	}
+}

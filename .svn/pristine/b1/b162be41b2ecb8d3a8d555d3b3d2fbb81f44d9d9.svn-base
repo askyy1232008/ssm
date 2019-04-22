@@ -1,0 +1,212 @@
+package com.lee.controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.alibaba.fastjson.JSONObject;
+import com.lee.dao.LoanCredentialDao;
+import com.lee.dao.LoanLogDao;
+import com.lee.pojo.LoanCredential;
+import com.lee.pojo.LoanLog;
+import com.lee.pojo.Truck;
+import com.lee.utils.BeanUtil;
+import com.lee.utils.DateUtil;
+import com.lee.utils.ResultBuilder;
+import com.lee.utils.StatusCode;
+
+@Controller
+@RequestMapping("/loan")
+public class LoanController {
+	@Resource(name = "loanCredentialDao")
+	private LoanCredentialDao loanCredentialDao;
+	@Resource(name = "loanLogDao")
+	private LoanLogDao loanLogDao;
+
+	@RequestMapping("/loanList")
+	@ResponseBody
+	@CrossOrigin(origins = "*", maxAge = 3600)
+	public Object loanList(HttpServletRequest request) {
+		String rows = request.getParameter("rows");
+		String page = request.getParameter("page");
+		String licensePlate = request.getParameter("licensePlate");
+		String financecompany = request.getParameter("financecompany");
+		String loanpeople = request.getParameter("loanpeople");
+		licensePlate = ("".equals(licensePlate) || licensePlate == null) ? null : licensePlate;
+		financecompany = ("".equals(financecompany) || financecompany == null) ? null : financecompany;
+		loanpeople = ("".equals(loanpeople) || loanpeople == null) ? null : loanpeople;
+		int currentpage = Integer.parseInt(("0".equals(page) || page == null) ? "1" : page);// 第几页
+		int pagesize = Integer.parseInt(("".equals(rows) || rows == null) ? "10" : rows);// 每页多少行
+		List<Map<String, Object>> list = this.loanCredentialDao.getLoanCredentialDatagrid((currentpage - 1) * pagesize,
+				pagesize, licensePlate, financecompany, loanpeople);
+		List<Map<String, Object>> list1 = list;
+		List<Map<String, Object>> list2 = new ArrayList<Map<String, Object>>();
+		for (int i = 0; i < list.size(); i++) {
+			Map<String, Object> m = BeanUtil.transBean2Map(list.get(i));
+			Map<String, Object> map = BeanUtil.transBean2Map(list1.get(i));
+			map.remove("truck");
+			Truck t = (Truck) m.get("truck");
+			map.put("truckid", t.getTruckid());
+			map.put("vin", t.getVin());
+			list2.add(map);
+		}
+		int total = this.loanCredentialDao.countGetLoanCredentialDatagrid(licensePlate, financecompany, loanpeople);
+		Map<String, Object> newMap = new HashMap<String, Object>();
+		newMap.put("total", total);
+		newMap.put("rows", list2);
+		return newMap;
+	}
+
+	@RequestMapping("/addLoan")
+	@ResponseBody
+	@CrossOrigin(origins = "*", maxAge = 3600)
+	public int addLoan(@RequestBody LoanCredential lc) {
+		Integer truckid = lc.getTruckid();
+		int r3 = this.loanCredentialDao.countByTruckid(truckid);
+		if (r3 > 0) {
+			return 0;
+		}
+		int r1 = this.loanCredentialDao.insertSelective(lc);
+		LoanLog ll = new LoanLog();
+		ll.setTotalrepayment(lc.getLoanmoney() + lc.getGrossinterest());
+		ll.setThatmonthhasreturned((double) 0);
+		ll.setPayeddate(DateUtil.nowDate());
+		ll.setAccumulatedrepayment(ll.getTotalrepayment());
+		ll.setSurplusshouldalsobereturned((double) 0);
+		ll.setTruckid(lc.getTruckid());
+		ll.setLoanid(this.loanCredentialDao.getLastLoanCredential().getId());
+		int r2 = this.loanLogDao.insertSelective(ll);
+		if (r1 > 0 && r2 > 0) {
+			return 1;
+		} else {
+			return 2;
+		}
+	}
+
+	@RequestMapping("/deleteLoan")
+	@ResponseBody
+	@CrossOrigin(origins = "*", maxAge = 3600)
+	public int deleteLoan(HttpServletRequest request) {
+		Integer id = Integer.parseInt(request.getParameter("id"));
+		int r1 = this.loanCredentialDao.deleteByPrimaryKey(id);
+		int r2 = this.loanLogDao.countByLoanid(id);
+		if (r2 > 0) {
+			this.loanLogDao.deleteByLoanid(id);
+		}
+		if (r1 > 0) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+	
+	@RequestMapping("/loadLoanLog")
+	@ResponseBody
+	@CrossOrigin(origins = "*", maxAge = 3600)
+	public Object loadLoanLog(HttpServletRequest request) {
+		Integer truckid = Integer.parseInt(request.getParameter("truckid"));
+		int r = this.loanCredentialDao.countByTruckid(truckid);
+		if(r<=0){
+			JSONObject jobj = new JSONObject();
+			jobj.put("result", "该车辆没有金融借款凭据,请添加！");
+			ResultBuilder<JSONObject> resultBuilder = new ResultBuilder<>(jobj, StatusCode.FALL);
+			return resultBuilder;
+		}
+		Integer loanid = this.loanCredentialDao.getLoanIdByTruckid(truckid).getId();
+		LoanLog ll = this.loanLogDao.getLoanLogByLoanidOrderByIdLimitOne(loanid);
+		JSONObject jobj = new JSONObject();
+		jobj.put("result", ll);
+		ResultBuilder<JSONObject> resultBuilder = new ResultBuilder<>(jobj, StatusCode.SUCCESS);
+		return resultBuilder;
+	}
+
+	@RequestMapping("/payedLoan")
+	@ResponseBody
+	@CrossOrigin(origins = "*", maxAge = 3600)
+	public Object payedLoan(HttpServletRequest request) {
+		Integer truckid = Integer.parseInt(request.getParameter("truckid"));
+		String paydate = request.getParameter("paydate");
+		double paynumber = Double.valueOf(request.getParameter("paynumber"));
+		int r1 = this.loanCredentialDao.countByTruckid(truckid);
+		JSONObject jobj = new JSONObject();
+		if (r1 <= 0) {
+			jobj.put("result", "该车辆还没有金融借款凭据,请先添加！");
+			ResultBuilder<JSONObject> resultBuilder = new ResultBuilder<>(jobj, StatusCode.FALL);
+			return resultBuilder;
+		}
+		LoanCredential lc = this.loanCredentialDao.getLoanIdByTruckid(truckid);
+		int r2 = this.loanLogDao.countByLoanid(lc.getId());
+		int r3 = 0;
+		if (r2 > 1) {
+			List<LoanLog> listofll = this.loanLogDao.getLoanLogByLoanid(lc.getId());
+			LoanLog ll = listofll.get(0);
+			if ((paynumber + ll.getThatmonthhasreturned()) < lc.getMonthlyrepayment()) {
+				ll.setThatmonthhasreturned(paynumber + ll.getThatmonthhasreturned());
+				ll.setPayeddate(DateUtil.strToUtilDate(paydate, "yyyy-MM-dd"));
+				ll.setSurplusshouldalsobereturned(ll.getSurplusshouldalsobereturned() + paynumber);
+				ll.setAccumulatedrepayment(ll.getTotalrepayment() - ll.getSurplusshouldalsobereturned());
+				r3 = this.loanLogDao.updateByPrimaryKeySelective(ll);
+			} else {
+				LoanLog ll2 = new LoanLog();
+				ll2.setTotalrepayment(ll.getTotalrepayment());
+				ll2.setThatmonthhasreturned(paynumber + ll.getThatmonthhasreturned() - lc.getMonthlyrepayment());
+				ll2.setPayeddate(DateUtil.strToUtilDate(nextMonth17(paydate), "yyy-MM-dd"));
+				ll2.setSurplusshouldalsobereturned(ll.getSurplusshouldalsobereturned() + paynumber);
+				ll2.setAccumulatedrepayment(ll2.getTotalrepayment() - ll2.getSurplusshouldalsobereturned());
+				ll2.setLoanid(lc.getId());
+				ll2.setTruckid(truckid);
+				r3 = this.loanLogDao.insertSelective(ll2);
+			}
+		} else {
+			LoanLog ll = this.loanLogDao.getLoanLogByLoanidOrderByIdLimitOne(lc.getId());
+			if ((paynumber + ll.getThatmonthhasreturned()) < lc.getMonthlyrepayment()) {
+				ll.setThatmonthhasreturned(paynumber +ll.getThatmonthhasreturned());
+				ll.setPayeddate(DateUtil.strToUtilDate(paydate, "yyyy-MM-dd"));
+				ll.setSurplusshouldalsobereturned(ll.getThatmonthhasreturned());
+				ll.setAccumulatedrepayment(ll.getTotalrepayment() - ll.getSurplusshouldalsobereturned());
+				r3 = this.loanLogDao.updateByPrimaryKeySelective(ll);
+			} else {
+				LoanLog ll2 = new LoanLog();
+				ll2.setTotalrepayment(ll.getTotalrepayment());
+				ll2.setThatmonthhasreturned(paynumber + ll.getThatmonthhasreturned() - lc.getMonthlyrepayment());
+				ll2.setPayeddate(DateUtil.strToUtilDate(nextMonth17(paydate), "yyy-MM-dd"));
+				ll2.setSurplusshouldalsobereturned(ll.getThatmonthhasreturned() + paynumber);
+				ll2.setAccumulatedrepayment(ll2.getTotalrepayment() - ll2.getSurplusshouldalsobereturned());
+				ll2.setLoanid(lc.getId());
+				ll2.setTruckid(truckid);
+				r3 = this.loanLogDao.insertSelective(ll2);
+			}
+		}
+		if(r3>0){
+			jobj.put("result", "还款成功！");
+			ResultBuilder<JSONObject> resultBuilder = new ResultBuilder<>(jobj, StatusCode.SUCCESS);
+			return resultBuilder;
+		}else{
+			return null;
+		}
+	}
+
+	public String nextMonth17(String date) {
+		Integer year = Integer.parseInt(date.split("-")[0]);
+		Integer month = Integer.parseInt(date.split("-")[1]);
+		String day = "17";
+		String nextDate = "";
+		if ((month + 1) > 12) {
+			nextDate += String.valueOf(year + 1) + "-01-" + day;
+		} else {
+			nextDate += String.valueOf(year) + "-"
+					+ (month + 1 < 10 ? "0" + String.valueOf(month + 1) : String.valueOf(month + 1)) + "-" + day;
+		}
+		return nextDate;
+	}
+}

@@ -1,0 +1,14 @@
+driver=com.mysql.jdbc.Driver
+###\u6839\u636E\u81EA\u5DF1\u7684\u94FE\u63A5\u4FEE\u6539
+url=jdbc\:mysql\://120.77.81.96\:3306/manage_system
+username=root
+password=lifu
+initialSize=1
+maxActive=20
+maxIdle=20
+minIdle=3
+maxWait=60000
+
+connectionProperties=useUnicode=yes;characterEncoding=utf8;
+removeAbandoned=true
+removeAbandonedTimeout=180

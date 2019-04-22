@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lee.dao.RepayDao" >
+  <resultMap id="BaseResultMap" type="com.lee.pojo.Repay" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="truckid" property="truckid" jdbcType="INTEGER" />
+    <result column="total" property="total" jdbcType="VARCHAR" />
+    <result column="paydate" property="paydate" jdbcType="DATE" />
+    <result column="totalrepay" property="totalrepay" jdbcType="VARCHAR" />
+    <result column="monthlyrent" property="monthlyrent" jdbcType="VARCHAR" />
+    <result column="monthlyrepay" property="monthlyrepay" jdbcType="VARCHAR" />
+    <result column="nowpay" property="nowpay" jdbcType="VARCHAR" />
+    <result column="monthlypayed" property="monthlypayed" jdbcType="VARCHAR" />
+    <result column="remainingarrears" property="remainingarrears" jdbcType="VARCHAR" />
+    <result column="days" property="days" jdbcType="VARCHAR" />
+    <result column="latefee" property="latefee" jdbcType="VARCHAR" />
+    <result column="monthlyneedpay" property="monthlyneedpay" jdbcType="VARCHAR" />
+    <result column="totalrepayafterpayed" property="totalrepayafterpayed" jdbcType="VARCHAR" />
+    <result column="months" property="months" jdbcType="VARCHAR" />
+    <result column="voucherdate" property="voucherdate" jdbcType="DATE" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, truckid, total, paydate, totalrepay, monthlyrent, monthlyrepay, nowpay, monthlypayed, 
+    remainingarrears, days, latefee, monthlyneedpay, totalrepayafterpayed, months, voucherdate, 
+    remarks
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from repay_t
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from repay_t
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deletethistrucklast" parameterType="java.lang.Integer">
+      delete from repay_t
+      where truckid = #{truckid,jdbcType=INTEGER}
+      order by id desc
+      limit 1
+  </delete>
+  <insert id="insert" parameterType="com.lee.pojo.Repay" >
+    insert into repay_t (id, truckid, total, 
+      paydate, totalrepay, monthlyrent, 
+      monthlyrepay, nowpay, monthlypayed, 
+      remainingarrears, days, latefee, 
+      monthlyneedpay, totalrepayafterpayed, months, 
+      voucherdate, remarks)
+    values (#{id,jdbcType=INTEGER}, #{truckid,jdbcType=INTEGER}, #{total,jdbcType=VARCHAR}, 
+      #{paydate,jdbcType=DATE}, #{totalrepay,jdbcType=VARCHAR}, #{monthlyrent,jdbcType=VARCHAR}, 
+      #{monthlyrepay,jdbcType=VARCHAR}, #{nowpay,jdbcType=VARCHAR}, #{monthlypayed,jdbcType=VARCHAR}, 
+      #{remainingarrears,jdbcType=VARCHAR}, #{days,jdbcType=VARCHAR}, #{latefee,jdbcType=VARCHAR}, 
+      #{monthlyneedpay,jdbcType=VARCHAR}, #{totalrepayafterpayed,jdbcType=VARCHAR}, #{months,jdbcType=VARCHAR}, 
+      #{voucherdate,jdbcType=DATE}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lee.pojo.Repay" >
+    insert into repay_t
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="truckid != null" >
+        truckid,
+      </if>
+      <if test="total != null" >
+        total,
+      </if>
+      <if test="paydate != null" >
+        paydate,
+      </if>
+      <if test="totalrepay != null" >
+        totalrepay,
+      </if>
+      <if test="monthlyrent != null" >
+        monthlyrent,
+      </if>
+      <if test="monthlyrepay != null" >
+        monthlyrepay,
+      </if>
+      <if test="nowpay != null" >
+        nowpay,
+      </if>
+      <if test="monthlypayed != null" >
+        monthlypayed,
+      </if>
+      <if test="remainingarrears != null" >
+        remainingarrears,
+      </if>
+      <if test="days != null" >
+        days,
+      </if>
+      <if test="latefee != null" >
+        latefee,
+      </if>
+      <if test="monthlyneedpay != null" >
+        monthlyneedpay,
+      </if>
+      <if test="totalrepayafterpayed != null" >
+        totalrepayafterpayed,
+      </if>
+      <if test="months != null" >
+        months,
+      </if>
+      <if test="voucherdate != null" >
+        voucherdate,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="truckid != null" >
+        #{truckid,jdbcType=INTEGER},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=VARCHAR},
+      </if>
+      <if test="paydate != null" >
+        #{paydate,jdbcType=DATE},
+      </if>
+      <if test="totalrepay != null" >
+        #{totalrepay,jdbcType=VARCHAR},
+      </if>
+      <if test="monthlyrent != null" >
+        #{monthlyrent,jdbcType=VARCHAR},
+      </if>
+      <if test="monthlyrepay != null" >
+        #{monthlyrepay,jdbcType=VARCHAR},
+      </if>
+      <if test="nowpay != null" >
+        #{nowpay,jdbcType=VARCHAR},
+      </if>
+      <if test="monthlypayed != null" >
+        #{monthlypayed,jdbcType=VARCHAR},
+      </if>
+      <if test="remainingarrears != null" >
+        #{remainingarrears,jdbcType=VARCHAR},
+      </if>
+      <if test="days != null" >
+        #{days,jdbcType=VARCHAR},
+      </if>
+      <if test="latefee != null" >
+        #{latefee,jdbcType=VARCHAR},
+      </if>
+      <if test="monthlyneedpay != null" >
+        #{monthlyneedpay,jdbcType=VARCHAR},
+      </if>
+      <if test="totalrepayafterpayed != null" >
+        #{totalrepayafterpayed,jdbcType=VARCHAR},
+      </if>
+      <if test="months != null" >
+        #{months,jdbcType=VARCHAR},
+      </if>
+      <if test="voucherdate != null" >
+        #{voucherdate,jdbcType=DATE},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lee.pojo.Repay" >
+    update repay_t
+    <set >
+      <if test="truckid != null" >
+        truckid = #{truckid,jdbcType=INTEGER},
+      </if>
+      <if test="total != null" >
+        total = #{total,jdbcType=VARCHAR},
+      </if>
+      <if test="paydate != null" >
+        paydate = #{paydate,jdbcType=DATE},
+      </if>
+      <if test="totalrepay != null" >
+        totalrepay = #{totalrepay,jdbcType=VARCHAR},
+      </if>
+      <if test="monthlyrent != null" >
+        monthlyrent = #{monthlyrent,jdbcType=VARCHAR},
+      </if>
+      <if test="monthlyrepay != null" >
+        monthlyrepay = #{monthlyrepay,jdbcType=VARCHAR},
+      </if>
+      <if test="nowpay != null" >
+        nowpay = #{nowpay,jdbcType=VARCHAR},
+      </if>
+      <if test="monthlypayed != null" >
+        monthlypayed = #{monthlypayed,jdbcType=VARCHAR},
+      </if>
+      <if test="remainingarrears != null" >
+        remainingarrears = #{remainingarrears,jdbcType=VARCHAR},
+      </if>
+      <if test="days != null" >
+        days = #{days,jdbcType=VARCHAR},
+      </if>
+      <if test="latefee != null" >
+        latefee = #{latefee,jdbcType=VARCHAR},
+      </if>
+      <if test="monthlyneedpay != null" >
+        monthlyneedpay = #{monthlyneedpay,jdbcType=VARCHAR},
+      </if>
+      <if test="totalrepayafterpayed != null" >
+        totalrepayafterpayed = #{totalrepayafterpayed,jdbcType=VARCHAR},
+      </if>
+      <if test="months != null" >
+        months = #{months,jdbcType=VARCHAR},
+      </if>
+      <if test="voucherdate != null" >
+        voucherdate = #{voucherdate,jdbcType=DATE},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lee.pojo.Repay" >
+    update repay_t
+    set truckid = #{truckid,jdbcType=INTEGER},
+      total = #{total,jdbcType=VARCHAR},
+      paydate = #{paydate,jdbcType=DATE},
+      totalrepay = #{totalrepay,jdbcType=VARCHAR},
+      monthlyrent = #{monthlyrent,jdbcType=VARCHAR},
+      monthlyrepay = #{monthlyrepay,jdbcType=VARCHAR},
+      nowpay = #{nowpay,jdbcType=VARCHAR},
+      monthlypayed = #{monthlypayed,jdbcType=VARCHAR},
+      remainingarrears = #{remainingarrears,jdbcType=VARCHAR},
+      days = #{days,jdbcType=VARCHAR},
+      latefee = #{latefee,jdbcType=VARCHAR},
+      monthlyneedpay = #{monthlyneedpay,jdbcType=VARCHAR},
+      totalrepayafterpayed = #{totalrepayafterpayed,jdbcType=VARCHAR},
+      months = #{months,jdbcType=VARCHAR},
+      voucherdate = #{voucherdate,jdbcType=DATE},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getthistrucklast" resultMap="BaseResultMap">
+      select 
+      <include refid="Base_Column_List" />
+      from repay_t
+      where truckid = #{truckid,jdbcType=INTEGER}
+      order by id desc
+      limit 1
+  </select>
+  <select id="getthistruckall" resultMap="BaseResultMap">
+      select 
+      <include refid="Base_Column_List" />
+      from repay_t
+      where truckid = #{truckid,jdbcType=INTEGER}
+      order by id asc
+  </select>
+  <select id="countthistruckall" resultType="java.lang.Integer">
+      select count(id)
+      from repay_t
+      where truckid = #{truckid,jdbcType=INTEGER}
+      order by id desc
+  </select>
+  <select id="getthistrucklastid" resultType="java.lang.Integer">
+      select id
+      from repay_t
+      where truckid = #{truckid,jdbcType=INTEGER}
+      order by id desc 
+      limit 1
+  </select>
+  <select id="countByTruckid" resultType="java.lang.Integer">
+		select count(id)
+		from
+		repay_t
+		where truckid = #{truckid,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByTruckid" parameterType="java.lang.Integer">
+		delete from
+		repay_t
+		where truckid = #{truckid,jdbcType=INTEGER}
+	</delete>
+</mapper>

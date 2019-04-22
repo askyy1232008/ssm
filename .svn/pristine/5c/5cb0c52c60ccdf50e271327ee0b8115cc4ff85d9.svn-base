@@ -1,0 +1,39 @@
+package com.lee.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.lee.pojo.LoanCredential;
+
+public interface LoanCredentialDao {
+    int deleteByPrimaryKey(Integer id);
+
+    int insert(LoanCredential record);
+
+    int insertSelective(LoanCredential record);
+
+    LoanCredential selectByPrimaryKey(Integer id);
+
+    int updateByPrimaryKeySelective(LoanCredential record);
+
+    int updateByPrimaryKey(LoanCredential record);
+    
+    LoanCredential getLastLoanCredential();
+    
+    List<Map<String,Object>> getLoanCredentialDatagrid(@Param("offset") int offset, @Param("limit") int limit,
+			 @Param("licenseplate") String licenseplate,@Param("financecompany") String financecompany,
+			@Param("loanpeople") String loanpeople);
+    
+    int countGetLoanCredentialDatagrid(@Param("licenseplate") String licenseplate,@Param("financecompany") String financecompany,
+			@Param("loanpeople") String loanpeople);
+    
+    int countByTruckid(@Param("truckid") int truckid);
+    
+    LoanCredential getLoanIdByTruckid(@Param("truckid") int truckid);
+    
+    int deleteByTruckid(@Param("truckid") int truckid);
+    
+    
+}
